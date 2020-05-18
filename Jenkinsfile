@@ -161,7 +161,7 @@ This function provides the functionality to build your clode
 def UDF_BuildSourceCode()
 {	
 	try	{
-		sh 'mvn clean package'	
+		//sh 'mvn clean package'	
 	}catch(error) {
 		throw(error)
 		SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
@@ -176,7 +176,7 @@ def UDF_ExecuteCodeReviewAutoFramework()
 {	
 	try{
 		echo 'Execution of code review automation framework'
-		bat 'mvn sonar:sonar'
+		bat 'java -jar codereviewjar\review-automation-framework.jar CLI cicd-demo CodeReview.html status.txt'
 		echo 'Execution completed'	
 	} catch(error) {
 		throw(error)
