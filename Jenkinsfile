@@ -176,7 +176,7 @@ def UDF_ExecuteCodeReviewAutoFramework()
 {	
 	try{
 		echo 'Execution of code review automation framework'
-		bat "java -jar codereviewjar/review-automation-framework.jar CLI ${env.WORKSPACE}/cicd-demo CodeReview.html status.txt"
+		bat "java -jar codereviewjar/review-automation-framework.jar CLI ${env.WORKSPACE} CodeReview.html status.txt"
 		echo 'Execution completed'	
 	} catch(error) {
 		throw(error)
