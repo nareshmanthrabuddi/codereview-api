@@ -40,7 +40,7 @@ node {
 	properties([
      parameters([
        choiceParam(
-         choices: 'BUILD-MUNITS\nBUILD-MUNITS-SONAR\nBUILD-MUNITS-SONAR-RELEASE\nBUILD-MUNITS-SONAR-RELEASE-DEPLOY',
+         choices: 'BUILD-MUNITS\nBUILD-MUNITS-CODEREVIEW\nBUILD-MUNITS-CODEREVIEW-RELEASE\nBUILD-MUNITS-CODEREVIEW-RELEASE-DEPLOY',
             description: 'Please select the Build Mechanism',
             name: 'BUILD_MECHANISM'
        ),
@@ -94,13 +94,13 @@ node {
 				SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
 
 			}		
-		} else if(params.BUILD_MECHANISM == 'BUILD-MUNITS-SONAR') {
+		} else if(params.BUILD_MECHANISM == 'BUILD-MUNITS-CODEREVIEW') {
 			try{
 				stage 'Code Build & MUnits Execution'	
 					UDF_BuildSourceCode()
 					
-				stage 'SonarQube Analysis'
-					UDF_ExecuteSonarQubeRules()
+				stage 'CODEREVIEWQube Analysis'
+					UDF_ExecuteCodeReviewAutoFramework()
 			
 				stage 'Notification'
 					SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Success")
@@ -110,13 +110,13 @@ node {
 				SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
 			}
 
-		} else if(params.BUILD_MECHANISM == 'BUILD-MUNITS-SONAR-RELEASE') {
+		} else if(params.BUILD_MECHANISM == 'BUILD-MUNITS-CODEREVIEW-RELEASE') {
 			try{
 				stage 'Code Build & MUnits Execution'	
 					UDF_BuildSourceCode()
 					
-				stage 'SonarQube Analysis'
-					UDF_ExecuteSonarQubeRules()
+				stage 'Code Review Analysis'
+					UDF_ExecuteCodeReviewAutoFramework()
 
 				stage 'ArtifactUploadToNexus'
 					UDF_ArtifactUploadToNexus()
@@ -129,13 +129,13 @@ node {
 				SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
 			}
 
-		}  else if(params.BUILD_MECHANISM == 'BUILD-MUNITS-SONAR-RELEASE-DEPLOY') {
+		}  else if(params.BUILD_MECHANISM == 'BUILD-MUNITS-CODEREVIEW-RELEASE-DEPLOY') {
 			try{
 				stage 'Code Build & MUnits Execution'	
 					UDF_BuildSourceCode()
 					
-				stage 'SonarQube Analysis'
-					UDF_ExecuteSonarQubeRules()
+				stage 'Code Review Analysis'
+					UDF_ExecuteCodeReviewAutoFramework()
 
 				stage 'ArtifactUploadToNexus'
 					UDF_ArtifactUploadToNexus()
@@ -169,15 +169,15 @@ def UDF_BuildSourceCode()
 }
 
 /*
-SONARQUBE - STAGE
-This function provides functionality to do the SONAR Analysis
+CODEREVIEW - STAGE
+This function provides functionality to do the CODEREVIEW Analysis
 */
-def UDF_ExecuteSonarQubeRules()
+def UDF_ExecuteCodeReviewAutoFramework()
 {	
 	try{
-		echo 'SonarQube Rules Execution started'
+		echo 'Execution of code review automation framework'
 		bat 'mvn sonar:sonar'
-		echo 'SonarQube Rules Execution Completed'	
+		echo 'Execution completed'	
 	} catch(error) {
 		throw(error)
 		SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
