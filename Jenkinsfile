@@ -172,14 +172,20 @@ def UDF_BuildSourceCode()
 CODEREVIEW - STAGE
 This function provides functionality to do the CODEREVIEW Analysis
 */
+
 def UDF_ExecuteCodeReviewAutoFramework()
 {	
 	try{
-		echo 'Execution of code review automation framework'
+		echo '### CODE REVIEW ANALYSIS IS INITIATED ###'
 		bat "java -jar codereviewjar/review-automation-framework.jar CLI ${env.WORKSPACE} CodeReview.html status.txt"
-		echo 'Execution completed'	
+		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
 		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/statusValue.xml","status")
 		echo "Code review status is : ${v_codeReviewStatus}"
+		if(v_codeReviewStatus == "Success") {
+				echo "### CODE LOOKS GOOD, WE CAN PROCEED FURTHER ###"
+			} else {
+				echo "### THERE ARE ISSUES IN THE CODE WE CANNOT MOVE FURTHER  ###"
+		}
 
 	} catch(error) {
 		throw(error)
