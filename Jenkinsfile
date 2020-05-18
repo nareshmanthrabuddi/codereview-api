@@ -178,7 +178,7 @@ def UDF_ExecuteCodeReviewAutoFramework()
 		echo 'Execution of code review automation framework'
 		bat "java -jar codereviewjar/review-automation-framework.jar CLI ${env.WORKSPACE} CodeReview.html status.txt"
 		echo 'Execution completed'	
-		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/statusValue.txt","status")
+		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/statusValue.xml","status")
 		echo "Code review status is : ${v_codeReviewStatus}"
 
 	} catch(error) {
