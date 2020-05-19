@@ -178,7 +178,7 @@ def UDF_ExecuteCodeReviewAutoFramework()
 	try{
 		echo '### CODE REVIEW ANALYSIS IS INITIATED ###'
 		bat "java -jar codereviewjar/review-automation-framework-mule4.jar CLI ${env.WORKSPACE} CodeReview.html"
-		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/statusValue.xml","status")
+		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/status.xml","status")
 		if(v_codeReviewStatus == "Success") {
 				echo "### CODE LOOKS GOOD, WE CAN PROCEED FURTHER ###"
 			} else {
