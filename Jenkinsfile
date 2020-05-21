@@ -181,8 +181,9 @@ def UDF_ExecuteCodeReviewAutoFramework()
 		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/status.xml","status")
 		def v_majorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Major")
 		def v_minorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Minor")
-		echo '### MAJOR ISSUES : ${v_majorCount}'	
-		echo '### MINOR ISSUES : ${v_minorCount}'	
+		echo "### Code Review status : ${v_codeReviewStatus}"	
+		echo "### MAJOR ISSUES : ${v_majorCount}"	
+		echo "### MINOR ISSUES : ${v_minorCount}"
 		
 		if(v_codeReviewStatus == "Success") {
 				echo "### CODE LOOKS GOOD, WE CAN PROCEED FURTHER ###"
