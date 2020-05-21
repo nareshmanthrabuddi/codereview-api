@@ -194,8 +194,9 @@ def UDF_ExecuteCodeReviewAutoFramework()
 		
 	} catch(error) {
 		echo "ERROR BLOCK"
-		throw(error)
 		SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
+		throw(error)
+
 	}
 
 }
