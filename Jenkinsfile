@@ -102,11 +102,6 @@ node {
 				stage 'Code Review Analysis'
 					UDF_ExecuteCodeReviewAutoFramework()
 			
-				/*
-				stage 'Notification'
-					SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Success")
-				*/
-
 			} catch(error) {
 				throw(error)
 				SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
@@ -185,8 +180,8 @@ def UDF_ExecuteCodeReviewAutoFramework()
 		def v_majorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Major")
 		def v_minorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Minor")
 		echo "### Code Review status : ${v_codeReviewStatus}"	
-		echo "### MAJOR ISSUES : ${v_majorCount}"	
-		echo "### MINOR ISSUES : ${v_minorCount}"
+		echo "### MAJOR ISSUES ARE : ${v_majorCount}"	
+		echo "### MINOR ISSUES ARE : ${v_minorCount}"
 		
 		if(v_codeReviewStatus == "Success") {
 				echo "### CODE LOOKS GOOD, WE CAN PROCEED FURTHER ###"
@@ -194,6 +189,7 @@ def UDF_ExecuteCodeReviewAutoFramework()
 			} else {
 				echo "### THERE ARE A FEW ISSUES IN THE CODE, WE CANNOT PROCEED FURTHER  ###"
 				currentBuild.result = 'FAILURE'
+				sh "exit 1"
 		}
 		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
 		
