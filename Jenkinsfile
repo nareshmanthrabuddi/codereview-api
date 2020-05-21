@@ -190,9 +190,9 @@ def UDF_ExecuteCodeReviewAutoFramework()
 				echo "### THERE ARE A FEW ISSUES IN THE CODE, WE CANNOT PROCEED FURTHER  ###"
 				//currentBuild.result = 'FAILURE'
 				currentBuild.rawBuild.result = Result.ABORTED
-			    throw new hudson.AbortException('Guess what!')
+			    //throw new hudson.AbortException('Guess what!')
 			    echo 'Further code will not be executed'
-				//throw new RuntimeException("Code review failed")
+				throw new RuntimeException("Code review failed")
 		}
 		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
 		
