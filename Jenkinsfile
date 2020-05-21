@@ -189,7 +189,7 @@ def UDF_ExecuteCodeReviewAutoFramework()
 			} else {
 				echo "### THERE ARE A FEW ISSUES IN THE CODE, WE CANNOT PROCEED FURTHER  ###"
 				currentBuild.result = 'FAILURE'
-				sh "exit 1"
+				throw new RuntimeException("Code review failed")
 		}
 		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
 		
