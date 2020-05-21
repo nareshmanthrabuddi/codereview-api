@@ -186,10 +186,11 @@ def UDF_ExecuteCodeReviewAutoFramework()
 		if(v_codeReviewStatus == "Success") {
 				echo "### CODE LOOKS GOOD, WE CAN PROCEED FURTHER ###"
 				currentBuild.result = 'SUCCESS'
-			} else {
+		} else {
 				echo "### THERE ARE A FEW ISSUES IN THE CODE, WE CANNOT PROCEED FURTHER  ###"
 				currentBuild.result = 'FAILURE'
-				throw new RuntimeException("Code review failed")
+				return
+				//throw new RuntimeException("Code review failed")
 		}
 		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
 		
