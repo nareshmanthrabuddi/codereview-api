@@ -175,8 +175,8 @@ def UDF_ExecuteCodeReviewAutoFramework()
 	try{
 		echo '### CODE REVIEW ANALYSIS IS INITIATED ###'
 		bat "java -jar codereviewjar/review-automation-framework-mule4.jar CLI ${env.WORKSPACE} CodeReview.html"
-		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/status.xml","status")
-		//def v_codeReviewStatus ='Failed'
+		//def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/status.xml","status")
+		def v_codeReviewStatus ='Success'
 		def v_majorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Major")
 		def v_minorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Minor")
 		echo "### Code Review status : ${v_codeReviewStatus}"	
@@ -188,7 +188,10 @@ def UDF_ExecuteCodeReviewAutoFramework()
 				currentBuild.result = 'SUCCESS'
 		} else {
 				echo "### THERE ARE A FEW ISSUES IN THE CODE, WE CANNOT PROCEED FURTHER  ###"
-				codeReviewResult()
+				currentBuild.rawBuild.result = Result.ABORTED
+				//throw new hudson.AbortException('Guess what!')
+				echo 'Further code will not be executed'
+				throw new RuntimeException("Code review failed")
 		}
 		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
 		
@@ -199,14 +202,6 @@ def UDF_ExecuteCodeReviewAutoFramework()
 
 	}
 
-}
-
-def codeReviewResult() {
-	//currentBuild.result = 'FAILURE'
-	currentBuild.rawBuild.result = Result.ABORTED
-	//throw new hudson.AbortException('Guess what!')
-	echo 'Further code will not be executed'
-	throw new RuntimeException("Code review failed")
 }
 
 /*
