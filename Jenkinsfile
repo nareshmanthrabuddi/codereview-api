@@ -197,8 +197,9 @@ def UDF_ExecuteCodeReviewAutoFramework()
 		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
 		
 	} catch(error) {
-		//throw(error)
-		//SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
+		echo "ERROR BLOCK"
+		throw(error)
+		SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
 	}
 
 }
