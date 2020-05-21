@@ -102,8 +102,10 @@ node {
 				stage 'Code Review Analysis'
 					UDF_ExecuteCodeReviewAutoFramework()
 			
+				/*
 				stage 'Notification'
 					SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Success")
+				*/
 
 			} catch(error) {
 				throw(error)
