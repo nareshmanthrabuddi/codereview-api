@@ -179,17 +179,26 @@ def UDF_ExecuteCodeReviewAutoFramework()
 		echo '### CODE REVIEW ANALYSIS IS INITIATED ###'
 		bat "java -jar codereviewjar/review-automation-framework-mule4.jar CLI ${env.WORKSPACE} CodeReview.html"
 		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/status.xml","status")
+		def v_majorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Major")
+		def v_minorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Minor")
+		echo '### MAJOR ISSUES : ${v_majorCount}'	
+		echo '### MINOR ISSUES : ${v_minorCount}'	
+		
 		if(v_codeReviewStatus == "Success") {
 				echo "### CODE LOOKS GOOD, WE CAN PROCEED FURTHER ###"
+				currentBuild.result = 'SUCCESS'
 			} else {
 				echo "### THERE ARE A FEW ISSUES IN THE CODE WE CANNOT MOVE FURTHER  ###"
+				currentBuild.result = 'FAILURE'
 		}
 		echo '### CODE REVIEW ANALYSIS IS DONE ###'	
-
+		
 	} catch(error) {
 		throw(error)
+		currentBuild.result = 'FAILURE'
 		SendEmail("naresh.manthrabuddi@whishworks.com","naresh.manthrabuddi@whishworks.com","Failed")
 	}
+
 }
 
 /*
