@@ -175,8 +175,8 @@ def UDF_ExecuteCodeReviewAutoFramework()
 	try{
 		echo '### CODE REVIEW ANALYSIS IS INITIATED ###'
 		bat "java -jar codereviewjar/review-automation-framework-mule4.jar CLI ${env.WORKSPACE} CodeReview.html"
-		//def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/status.xml","status")
-		def v_codeReviewStatus ='Success'
+		def v_codeReviewStatus = UDF_GetPOMData("${env.WORKSPACE}/status.xml","status")
+		//def v_codeReviewStatus ='Success'
 		def v_majorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Major")
 		def v_minorCount = UDF_GetPOMData("${env.WORKSPACE}/status.xml","Minor")
 		echo "### Code Review status : ${v_codeReviewStatus}"	
